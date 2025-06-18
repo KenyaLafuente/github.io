@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto de Viaje a Tailandia - Kalemo Tours</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        .container-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Stronger shadow */
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            overflow: hidden; /* Ensure content stays within rounded corners */
+        }
+        .section-title {
+            color: #2c3e50; /* Darker blue for titles */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #8AC9AD; /* Corporate Green underline */
+            padding-bottom: 0.5rem;
+        }
+        .sub-section-title {
+            color: #34495e; /* Slightly lighter dark blue */
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-box {
+            background-color: #ecf0f1; /* Light gray background for feature boxes */
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.95rem;
+            color: #34495e;
+        }
+        .price-box {
+            background-color: #8AC9AD; /* Corporate Green background */
+            color: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .price-box span {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #8AC9AD, #6FA68B); /* Corporate Green Gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Itinerary and What's Included styles for single column */
+        .single-column-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Always a single column */
+            gap: 1.5rem; /* Consistent gap */
+        }
+        .itinerary-day, .feature-box-expanded {
+            background-color: #f8f9fa; /* Lighter background for itinerary days/features */
+            border-left: 4px solid #8AC9AD; /* Corporate Green border */
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0; /* Remove individual margins as grid handles gap */
+        }
+        .itinerary-day h4, .feature-box-expanded h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .itinerary-day p, .feature-box-expanded p {
+            color: #555;
+            line-height: 1.5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            color: #333;
+        }
+        td {
+            color: #555;
+        }
+        .note {
+            background-color: #fff3cd; /* Light yellow for notes */
+            border-left: 4px solid #ffc107; /* Yellow border */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            color: #664d03;
+        }
+        .cancellation-policy {
+            background-color: #f8d7da; /* Light red for cancellation policies */
+            border-left: 4px solid #dc3545; /* Red border */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            color: #721c24;
+        }
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #555;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #8AC9AD; /* Corporate Green for spinner */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Style for details/summary */
+        details {
+            border: 1px solid #e0e0e0;
+            border-radius: 0.75rem;
+            margin-bottom: 1.25rem; /* Keep margin for details blocks */
+            background-color: #f8f9fa;
+        }
+        summary {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #2c3e50;
+            outline: none; /* Remove outline on click */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid transparent; /* default */
+            transition: border-bottom-color 0.3s ease;
+        }
+        details[open] summary {
+            border-bottom-color: #e0e0e0; /* Add border when open */
+        }
+        details .content {
+            padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8AC9AD;
+        }
+        details[open] summary::after {
+            content: '-';
+        }
+
+        /* Sticky Formalize Reservation Button */
+        .sticky-formalize-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999; /* Ensure it's above other content */
+            padding: 1rem 2rem;
+            background-color: #8AC9AD;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 9999px; /* Fully rounded */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sticky-formalize-btn:hover {
+            background-color: #6FA68B;
+            transform: translateY(-2px);
+        }
+        .kalemo-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .kalemo-logo svg {
+            width: 3rem; /* Adjust size as needed */
+            height: 3rem;
+            fill: url(#kalemoGradient); /* Apply gradient fill */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-card">
+        <!-- Header Section -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div class="text-center md:text-left mb-4 md:mb-0">
+                <div class="kalemo-logo">
+                    <!-- SVG for a stylized travel icon as part of the logo -->
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="kalemoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8AC9AD;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#6FA68B;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM12 4a8 8 0 100 16 8 8 0 000-16zM11 6a1 1 0 011 1v4h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H7a1 1 0 010-2h4V7a1 1 0 011-1z"/>
+                    </svg>
+                    <h1 class="text-4xl font-extrabold gradient-text">KALEMO TOURS</h1>
+                </div>
+                <p class="text-md text-gray-600">Presupuesto Online N. P37761750246030</p>
+            </div>
+            <div class="text-center md:text-right text-gray-500">
+                <p>Fecha: 18/06/2025</p>
+                <p>Hora: 13:27:10</p>
+            </div>
+        </header>
+
+        <!-- Main Title and Price Box -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-10">
+            <div class="md:col-span-2">
+                <h2 class="text-5xl font-bold text-gray-800 leading-tight mb-4">
+                    Thai-Ko Basic: La Aventura de Tu Vida en Tailandia
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Prepárate para una experiencia inmersiva en el corazón de Asia, donde la cultura milenaria se fusiona con paisajes impresionantes y aventuras emocionantes. Este viaje de 8 días te llevará a descubrir lo mejor de Tailandia.
+                </p>
+            </div>
+            <div class="price-box">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-lg">Total</span>
+                    <span id="total-price" class="text-5xl font-extrabold">3253,03 €</span>
+                </div>
+                <p class="text-sm font-normal opacity-90">Para 2 adultos</p>
+            </div>
+        </div>
+
+        <!-- Budget Details -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Detalles del Presupuesto</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.333 0 2.5.667 2.5 1.5S13.333 11 12 11 9.5 10.333 9.5 9.5 10.667 8 12 8z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c-1.333 0-2.5.667-2.5 1.5S10.667 14 12 14s2.5-.667 2.5-1.5S13.333 11 12 11z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-1.333 0-2.5.667-2.5 1.5S10.667 17 12 17s2.5-.667 2.5-1.5S13.333 14 12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"></path></svg>
+                    <span>Importe Base: 2314,67 €</span>
+                </div>
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                    <span>Tasas: 938,38 €</span>
+                </div>
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h2m4 0h6m-6 0H9m0 0V5m0 0v3m0 0h6m-6 0H9m0 0V5m0 0v3"></path></svg>
+                    <span>Pasajeros: 2 adultos</span>
+                </div>
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span>Fechas: Del 25/06/2025 al 03/07/2025</span>
+                </div>
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Duración: 8 días</span>
+                </div>
+                <div class="feature-box">
+                    <svg class="w-6 h-6 text-[#8AC9AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0L6.343 16.657m10.607-2.121L13.414 9.172a1.998 1.998 0 00-2.828 0L6.343 14.536m10.607-2.121a2 2 0 11-2.828-2.828 2 2 0 012.828 2.828z"></path></svg>
+                    <span>Origen: Madrid, España</span>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-4 text-center">
+                Este es un sistema de venta online, que genera precios finales por cada petición solicitada. Precio NO VINCULANTE para reservas futuras. Reconfirmamos su precio al momento de hacer la reserva.
+            </p>
+        </section>
+
+        <!-- Flight Details -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Detalles de Vuelos</h3>
+            <h4 class="sub-section-title text-xl">Vuelo de Ida: Madrid - Bangkok</h4>
+            <div class="overflow-x-auto rounded-xl shadow-md">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fechas</th>
+                            <th>Vuelo</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Clase</th>
+                            <th>Maleta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>25-06-2025</td>
+                            <td>Qatar Airways IB6949</td>
+                            <td>Madrid MAD 09:30</td>
+                            <td>Doha DOH 02:35</td>
+                            <td>Turista</td>
+                            <td>25 kilos por pasajero.</td>
+                        </tr>
+                        <tr>
+                            <td>26-06-2025</td>
+                            <td>Qatar Airways QR836</td>
+                            <td>Doha DOH 17:40</td>
+                            <td>Bangkok BKK 13:25</td>
+                            <td>Turista</td>
+                            <td>25 kilos por pasajero.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="sub-section-title text-xl">Vuelo de Vuelta: Chiang Mai - Madrid</h4>
+            <div class="overflow-x-auto rounded-xl shadow-md">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fechas</th>
+                            <th>Vuelo</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Clase</th>
+                            <th>Maleta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>03-07-2025</td>
+                            <td>Qatar Airways PG4415</td>
+                            <td>Chiang Mai CNX 11:55</td>
+                            <td>Bangkok BKK 13:20</td>
+                            <td>Turista</td>
+                            <td>25 kilos por pasajero.</td>
+                        </tr>
+                        <tr>
+                            <td>03-07-2025</td>
+                            <td>Qatar Airways QR829</td>
+                            <td>Bangkok BKK 21:05</td>
+                            <td>Doha DOH 23:50</td>
+                            <td>Turista</td>
+                            <td>25 kilos por pasajero.</td>
+                        </tr>
+                        <tr>
+                            <td>04-07-2025</td>
+                            <td>Qatar Airways IB6952</td>
+                            <td>Doha DOH 00:50</td>
+                            <td>Madrid MAD 07:15</td>
+                            <td>Turista</td>
+                            <td>25 kilos por pasajero.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Fecha límite de emisión: 18JUN25</p>
+        </section>
+
+        <!-- Itinerary Section -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Itinerario Detallado</h3>
+
+            <div class="single-column-grid">
+                <details class="itinerary-day" id="day-1">
+                    <summary>
+                        <h4>25 Junio | Madrid - Bangkok</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/4CAF50/ffffff?text=Vuelo+Madrid-Bangkok" alt="Vuelo Madrid - Bangkok" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Salida en vuelo regular con destino Bangkok. Noche a bordo.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="25 Junio | Madrid - Bangkok: Salida en vuelo regular con destino Bangkok. Noche a bordo.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-2">
+                    <summary>
+                        <h4>26 Junio | Bangkok</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/2196F3/ffffff?text=Llegada+a+Bangkok" alt="Llegada a Bangkok" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Llegada al aeropuerto internacional de Bangkok. Llegada y traslado al hotel (check-in a partir de las 14.00hrs). Alojamiento y resto del día libre.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="26 Junio | Bangkok: Llegada al aeropuerto internacional de Bangkok. Llegada y traslado al hotel (check-in a partir de las 14.00hrs). Alojamiento y resto del día libre.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-3">
+                    <summary>
+                        <h4>27 Junio | Bangkok</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/FFC107/000000?text=Templos+de+Bangkok" alt="Templos de Bangkok" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno. Salida del hotel recorriendo las calles principales de Bangkok y su parte antigua: Empezaremos con la visita al templo del buda de Oro (Wat Traimit) en cuyo interior se alberga el buda de 5.5 toneladas de oro. Seguiremos con la visita al templo del Buda Reclinado (Wat Po) donde se encuentra la imagen del buda reclinado más grande de Tailandia. Finalizaremos visitando el templo de mármol (Wat Benchamabophit) de gran belleza construido a base de mármol de carrara. Regreso al hotel. Alojamiento. * La hora y día de la visita serán confirmados en destino.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="27 Junio | Bangkok: Desayuno. Salida del hotel recorriendo las calles principales de Bangkok y su parte antigua: Empezaremos con la visita al templo del buda de Oro (Wat Traimit) en cuyo interior se alberga el buda de 5.5 toneladas de oro. Seguiremos con la visita al templo del Buda Reclinado (Wat Po) donde se encuentra la imagen del buda reclinado más grande de Tailandia. Finalizaremos visitando el templo de mármol (Wat Benchamabophit) de gran belleza construido a base de mármol de carrara. Regreso al hotel. Alojamiento.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-4">
+                    <summary>
+                        <h4>28 Junio | Bangkok</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/9C27B0/ffffff?text=Día+Libre+Bangkok" alt="Día Libre Bangkok" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno. Día libre para disfrutar de la ciudad, posibilidad de realizar excursiones opcionales.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="28 Junio | Bangkok: Desayuno. Día libre para disfrutar de la ciudad, posibilidad de realizar excursiones opcionales.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-5">
+                    <summary>
+                        <h4>29 Junio | Bangkok - Ayuthaya - Angthong - Phisanuloke - Sukhothai</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/F44336/ffffff?text=Ayuthaya+y+Templos" alt="Ayuthaya y Templos" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno y almuerzo. Salida hacia Ayuthaya segunda capital del reino de Siam. Viajaremos por el tiempo visitando los templos más importantes de la zona, Wat Yai Chaimongkol y Wat Mahatat. Nuestra próxima parada será Angthong donde se encuentra la imagen de buda más alto de Tailandia (93 m de altura). Almuerzo. Proseguiremos hacia Phitsanuloke, y visita el templo Wat Mahatat, donde se encuentra la imagen de buda considerada la más bonita de Tailandia. Nuestro último destino será Sukhothai. Alojamiento.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="29 Junio | Bangkok - Ayuthaya - Angthong - Phisanuloke - Sukhothai: Desayuno y almuerzo. Salida hacia Ayuthaya segunda capital del reino de Siam. Viajaremos por el tiempo visitando los templos más importantes de la zona, Wat Yai Chaimongkol y Wat Mahatat. Nuestra próxima parada será Angthong donde se encuentra la imagen de buda más alto de Tailandia (93 m de altura). Almuerzo. Proseguiremos hacia Phitsanuloke, y visita el templo Wat Mahatat, donde se encuentra la imagen de buda considerada la más bonita de Tailandia. Nuestro último destino será Sukhothai. Alojamiento.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-6">
+                    <summary>
+                        <h4>30 Junio | Sukhothai - Lampang - Chiang Rai</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/00BCD4/000000?text=Sukhothai+y+Muay+Thai" alt="Sukhothai y Muay Thai" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno y almuerzo. Salida para visitar las ruinas arqueológicas de la primera capital del Reino de Siam. El reino de Sukhothai se considera como la edad de oro de la civilización thai, y el arte religioso y la arquitectura de la época, se consideran como los más clásicos de los estilos thai. La capital original estaba rodeada por tres fortificaciones concéntricas y dos fosos salvados por cuatro puertas. Visita del parque histórico de esta antigua capital y sus templos más importantes. Continuación hacia Lampang. Hoy tendremos la oportunidad de aprender los movimientos básicos del deporte nacional y mundialmente conocido el MUAY THAI o boxeo tailandés. Esta escuela fue creada por un ex campeón que, tras retirarse de las competiciones, decidió abrir una escuela de boxeo para personas sin recursos. Con nuestra visita contribuiremos en la financiación de la escuela. Almuerzo para reponer fuerzas. Seguiremos hacia Chiang Rai. Llegada y visita al templo Rong Suea Ten o templo Azul. Alojamiento.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="30 Junio | Sukhothai - Lampang - Chiang Rai: Desayuno y almuerzo. Salida para visitar las ruinas arqueológicas de la primera capital del Reino de Siam. El reino de Sukhothai se considera como la edad de oro de la civilización thai, y el arte religioso y la arquitectura de la época, se consideran como los más clásicos de los estilos thai. La capital original estaba rodeada por tres fortificaciones concéntricas y dos fosos salvados por cuatro puertas. Visita del parque histórico de esta antigua capital y sus templos más importantes. Continuación hacia Lampang. Hoy tendremos la oportunidad de aprender los movimientos básicos del deporte nacional y mundialmente conocido el MUAY THAI o boxeo tailandés. Esta escuela fue creada por un ex campeón que, tras retirarse de las competiciones, decidió abrir una escuela de boxeo para personas sin recursos. Con nuestra visita contribuiremos en la financiación de la escuela. Almuerzo para reponer fuerzas. Seguiremos hacia Chiang Rai. Llegada y visita al templo Rong Suea Ten o templo Azul. Alojamiento.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-7">
+                    <summary>
+                        <h4>1 Julio | Chiang Rai - Chiang Mai</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/FF5722/ffffff?text=Triángulo+de+Oro" alt="Triángulo de Oro" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno y almuerzo. Salida para visitar el Triángulo de Oro, la zona donde confinan tres países: Myanmar, Laos y Thailandia, divididos por el rio Mekong y antiguamente, importante centro de tráfico de Opio. Visita del museo del Opio. Próxima visita al enclave donde se encuentran grupos étnicos. Podremos ver las tribus Akha, Lisu, tribu de las orejas horadadas y las más famosas las mujeres jirafa. Seguiremos con la visita al templo blanco de Wat Rong Khung. Continuaremos hacia Chiang Mai, la Rosa del Norte y la ciudad más importante de la región. Sus origenes se remontan al Reino Lanna en el siglo XIII. La ciudad antigua se encuentra rodeada por un foso y está amurallada. Llegada y visita al templo Doi Suthep, símbolo de la ciudad a 1.053 metros de altura e importante centro de peregrinación. Traslado al hotel. Alojamiento.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="1 Julio | Chiang Rai - Chiang Mai: Desayuno y almuerzo. Salida para visitar el Triángulo de Oro, la zona donde confinan tres países: Myanmar, Laos y Thailandia, divididos por el rio Mekong y antiguamente, importante centro de tráfico de Opio. Visita del museo del Opio. Próxima visita al enclave donde se encuentran grupos étnicos. Podremos ver las tribus Akha, Lisu, tribu de las orejas horadadas y las más famosas las mujeres jirafa. Seguiremos con la visita al templo blanco de Wat Rong Khung. Continuaremos hacia Chiang Mai, la Rosa del Norte y la ciudad más importante de la región. Sus origenes se remontan al Reino Lanna en el siglo XIII. La ciudad antigua se encuentra rodeada por un foso y está amurallada. Llegada y visita al templo Doi Suthep, símbolo de la ciudad a 1.053 metros de altura e importante centro de peregrinación. Traslado al hotel. Alojamiento.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-8">
+                    <summary>
+                        <h4>2 Julio | Chiang Mai - Santuario de elefantes - Chiang Mai</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/8BC34A/ffffff?text=Santuario+Elefantes" alt="Santuario de Elefantes" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno y almuerzo. Salida hacia ECO VALLEY, un campamento alternativo de elefantes. Dedicaremos este día en conocer más de cerca estos increíbles animales, empezando con la visita al museo cultural del elefante. Seguidamente ayudaremos con la preparación de su comida a base de hierbas y frutas, además de plátanos y caña de azúcar. Aprenderemos a producir papel hecho a base de estiércol de elefante. Por último, podremos disfrutar bañándonos con ellos bajo una pequeña cascada. Almuerzo. Tarde libre. Alojamiento.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="2 Julio | Chiang Mai - Santuario de elefantes - Chiang Mai: Desayuno y almuerzo. Salida hacia ECO VALLEY, un campamento alternativo de elefantes. Dedicaremos este día en conocer más de cerca estos increíbles animales, empezando con la visita al museo cultural del elefante. Seguidamente ayudaremos con la preparación de su comida a base de hierbas y frutas, además de plátanos y caña de azúcar. Aprenderemos a producir papel hecho a base de estiércol de elefante. Por último, podremos disfrutar bañándonos con ellos bajo una pequeña cascada. Almuerzo. Tarde libre. Alojamiento.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-9">
+                    <summary>
+                        <h4>3 Julio | Chiang Mai - Madrid</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/607D8B/ffffff?text=Aeropuerto+Chiang+Mai" alt="Aeropuerto Chiang Mai" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Desayuno en el hotel. A la hora acordada, traslado al aeropuerto de Chiang Mai para tomar el vuelo de regreso a España. Noche a bordo.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="3 Julio | Chiang Mai - Madrid: Desayuno en el hotel. A la hora acordada, traslado al aeropuerto de Chiang Mai para tomar el vuelo de regreso a España. Noche a bordo.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+
+                <details class="itinerary-day" id="day-10">
+                    <summary>
+                        <h4>4 Julio | Madrid</h4>
+                    </summary>
+                    <div class="content">
+                        <img src="https://placehold.co/400x200/795548/ffffff?text=Llegada+a+Madrid" alt="Llegada a Madrid" class="image-placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/ffffff?text=Imagen+no+disponible';">
+                        <p>Llegada y Fin de Viaje.</p>
+                        <button class="generate-idea-btn mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200" data-day-content="4 Julio | Madrid: Llegada y Fin de Viaje.">
+                            Generar Ideas ✨
+                        </button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- What's Included Section -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Lo Que Incluye Tu Aventura</h3>
+            <div class="single-column-grid">
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    <span>Vuelo España - Bangkok, Chiang Mai - España.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7l4-4m0 0l4 4m-4-4v18"></path></svg>
+                    <span>Traslado aeropuerto - hotel - aeropuerto.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m-1 4h1m-1 4h1"></path></svg>
+                    <span>3 noches de estancia en Bangkok, 4 noches en circuito, en la categoría elegida. En Bangkok, alojamiento y desayuno y media pensión (opción de pensión completa) durante el circuito.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <span>Visitas y entradas según itinerario.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span>Guía de habla hispana durante las visitas y las excursiones.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <span>1 botella por persona y día en el bus durante el circuito.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <span>Atención 24 horas en español WhatsApp y teléfono.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <span>Tarjeta Sim. Para poder obtener la tarjeta Sim, es necesario enviarnos una copia de los pasaportes de todos los pasajeros al menos 1 mes antes de la salida.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>TripBook.</span>
+                </div>
+                <div class="feature-box-expanded flex items-center gap-4">
+                    <svg class="w-6 h-6 text-[#8AC9AD] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12c.038 3.166 1.405 6.096 3.618 8.19l.213.178m0 0v-3.447m0 0H5.539a2 2 0 00-1.732 1h12a2 2 0 00-1.732-1H12v3.447z"></path></svg>
+                    <span>Seguro básico de viaje.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accommodation Details -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Alojamiento</h3>
+            <div class="mb-6">
+                <label for="hotel-category-select" class="block text-gray-700 text-lg font-bold mb-2">Selecciona tu categoría de hotel:</label>
+                <select id="hotel-category-select" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-[#8AC9AD] focus:border-[#8AC9AD] sm:text-sm">
+                    <option value="standard">Standard (Mandarin Hotel Bangkok)</option>
+                    <option value="superior">Superior (Hilton Garden Inn Bangkok Silom)</option>
+                    <option value="deluxe">Deluxe (Pullman Bangkok Hotel G)</option>
+                </select>
+            </div>
+
+            <h4 class="sub-section-title text-xl">Hotel en Bangkok</h4>
+            <div class="overflow-x-auto rounded-xl shadow-md mb-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Entrada/Salida</th>
+                            <th>Habitaciones</th>
+                            <th>Régimen</th>
+                            <th>Noches</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="bangkok-hotel-name">Mandarin Hotel Bangkok</td>
+                            <td>26/06/2025 - 29/06/2025</td>
+                            <td id="bangkok-room-type">Deluxe</td>
+                            <td id="bangkok-regimen">Alojamiento y desayuno</td>
+                            <td>3</td>
+                            <td>Pendiente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="sub-section-title text-xl">Circuito Thai-Ko Basic</h4>
+            <div class="overflow-x-auto rounded-xl shadow-md">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Circuito</th>
+                            <th>Entrada/Salida</th>
+                            <th>Habitaciones</th>
+                            <th>Régimen</th>
+                            <th>Noches</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Thai-Ko Basic</td>
+                            <td>29/06/2025 - 03/07/2025</td>
+                            <td id="circuit-category">Categoría Primera</td>
+                            <td>Media Pensión</td>
+                            <td>4</td>
+                            <td>Pendiente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Hoteles previstos o similares:</p>
+            <ul class="list-disc list-inside text-gray-600 ml-4" id="circuit-hotels-list">
+                <li>Sukhothai: SUKHOTHAI TREASURE</li>
+                <li>Chiang Rai: THE HERITAGE</li>
+                <li>Chiang Mai: CENTARA RIVERSIDE</li>
+            </ul>
+        </section>
+
+        <!-- Other Services -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Otros Servicios</h3>
+            <div class="overflow-x-auto rounded-xl shadow-md mb-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fechas</th>
+                            <th>Servicios</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>29/06/2025</td>
+                            <td>Tarjeta Sim</td>
+                            <td>Confirmado</td>
+                        </tr>
+                        <tr>
+                            <td>29/06/2025</td>
+                            <td>Eco Valley</td>
+                            <td>Confirmado</td>
+                        </tr>
+                        <tr>
+                            <td>29/06/2025</td>
+                            <td>Trip Book</td>
+                            <td>Confirmado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="sub-section-title text-xl">Seguros</h4>
+            <div class="overflow-x-auto rounded-xl shadow-md">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Servicios</th>
+                            <th>Total Pasajeros</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Seguro de Inclusión Mundo</td>
+                            <td>2</td>
+                            <td>Confirmado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- What's NOT Included Section -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Qué No Incluye</h3>
+            <ul class="list-disc list-inside text-gray-700 ml-4">
+                <li class="mb-2">Gastos personales.</li>
+                <li class="mb-2">Propinas.</li>
+                <li class="mb-2">Bebidas en las comidas.</li>
+                <li class="mb-2">Cualquier otro servicio no especificado en el apartado anterior.</li>
+            </ul>
+        </section>
+
+        <!-- Important Notes Section -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Notas Importantes</h3>
+            <div class="note">
+                <p class="font-semibold mb-2">Tarjeta de Llegada Digital (TDAC):</p>
+                <p>A partir del 1 de mayo, Tailandia ha implementado la Tarjeta de Llegada Digital (TDAC), un sistema moderno que agiliza el proceso de inmigración y reduce los tiempos de espera en el aeropuerto. Para completar su registro antes del viaje, acceda al sitio oficial de TDAC pinchando <a href="#" class="text-[#6FA68B] underline font-medium">aquí</a> y complete la información requerida.</p>
+            </div>
+            <div class="note mt-4">
+                <ul class="list-disc list-inside text-gray-700 ml-4">
+                    <li class="mb-2">Consultar suplemento para festividades especiales, Loykratong (Noviembre), Navidad y cenas de gala obligatorias.</li>
+                    <li class="mb-2">Algunos hoteles pueden tener suplemento en Gem & Jewelry Fair en febrero y septiembre del 2025 (fechas pendientes de confirmar).</li>
+                    <li class="mb-2">El orden de las visitas puede verse alterado.</li>
+                    <li class="mb-2">Para reservas de triple ocupación, la tercera cama es un sofá cama o un plegatín (rollabed).</li>
+                    <li class="mb-2">Consulta los requisitos de entrada actualizados pinchando <a href="#" class="text-[#6FA68B] underline font-medium">aquí</a>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Cancellation Policies Section -->
+        <section class="mb-10">
+            <h3 class="section-title text-2xl">Políticas de Cancelación</h3>
+            <div class="cancellation-policy">
+                <h4 class="font-bold text-lg mb-2">Condiciones generales de cancelación</h4>
+                <p class="mb-3">En todo momento el usuario consumidor puede desistir de los servicios solicitados o contratados, teniendo derecho a la devolución de las cantidades que hubiera abonado, tanto si se trata del precio total como del anticipo previsto anteriormente, pero deberá indemnizar a la agencia organizadora por los conceptos que a continuación se indican:</p>
+                <ol class="list-decimal list-inside ml-4 text-gray-800" id="cancellation-policy-text">
+                    <li class="mb-2">Los gastos de gestión (100 € por reserva), más los gastos de anulación tanto de servicios aéreos como de servicios terrestres que se hubieran producido según se especifica en el siguiente punto.</li>
+                    <li class="mb-2">Los gastos de anulación tanto de servicios aéreos como de servicios terrestres que se hubieran producido. Ante la imposibilidad de saber con exactitud los mismos les indicamos aproximadamente los importes de los mismos:
+                        <ul class="list-disc list-inside ml-4 mt-1">
+                            <li>**2.1. Servicios aéreos:** En el caso de que el viaje combinado esté sujeto a condiciones especiales de contratación (flete de aviones "chárter", buques, tarifas especiales, etc.), los gastos de anulación de servicios aéreos por desistimiento se establecerán de acuerdo con las condiciones concretas acordadas entre el prestador de servicios y la Agencia Organizadora, en algunos casos del 100%. Los programas cuya porción aérea se efectúan en vuelos de línea regular, en el caso de que el billete haya sido emitido por la agencia organizadora, tendrán unos gastos del 100% del importe de la tarifa aérea.</li>
+                            <li>**2.2. Servicios terrestres:** Los gastos de anulación de servicios terrestres por desistimiento se establecerán de acuerdo con las condiciones concretas acordadas entre el prestador de servicios y la Agencia Organizadora. A modo orientativo serán de:
+                                <ul class="list-disc list-inside ml-4 mt-1">
+                                    <li>Entre 31 y 45 días antes de la salida - 25% del precio del viaje combinado descontando la porción aérea del viaje.</li>
+                                    <li>Entre 21 y 30 días antes de la salida - 50% del precio del viaje combinado descontando la porción aérea del viaje.</li>
+                                    <li>20 días o menos antes de la salida - 100% del precio del viaje combinado descontando la porción aérea del viaje.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-2">Una penalización consistente en el 5% del total del viaje si el desistimiento se produce con más de 10 días y menos de 15 de antelación a la fecha de comienzo del viaje; el 15% entre los días 3 y 10, y el 25% dentro de las 48 horas anteriores a la salida. Los recargos de los puntos b) 2.1.- y b) 2.2.- son acumulativos a los cargos del punto b) 3.-</li>
+                    <li class="mb-2">De no presentarse a la hora prevista para la salida, perderá el 100% del total del viaje, estando obligado al pago del importe total del mismo, abonando en su caso las cantidades pendientes de pago después del depósito previsto en el apartado tercero.</li>
+                    <li class="mb-2">Las excursiones que sean contratadas por el consumidor en destino, se regirán, en lo referente a los gastos de anulación, en sus condiciones específicas, que serán puestas de manifiesto al usuario, compartiendo todas ellas la penalización del 100% de su importe si el consumidor no se presenta a las mismas. Las condiciones fijadas para los gastos serán plenamente aplicables con independencia de que la cancelación se haya producido por causas de fuerza mayor del consumidor.</li>
+                    <li class="mb-2">Todas y cada una de las penalizaciones expuestas en los apartados precedentes se tratará de que sean justificadas y adecuadas. No cabe, en ningún caso, la resolución parcial del contrato de viaje combinado. En caso de que el usuario o consumidor desista o resuelva parcialmente de algún servicio que integre el viaje combinado, no tendrá derecho a reembolso, indemnización o compensación alguna. Quedan exceptuadas las excursiones facultativas, que se regirán por lo dispuesto anteriormente. No obstante, si concurren circunstancias inevitables y extraordinarias en el destino o en las inmediaciones que afecten significativamente a la ejecución del viaje o al transporte de los pasajeros al lugar de destino, el viajero podrá resolver el contrato antes de su inicio sin penalización alguna y con derecho a reembolso de todos los pagos a cuenta del viaje que hubiera efectuado. Dichos reembolsos o devoluciones se realizarán al viajero, descontando la penalización correspondiente en el caso del apartado 1 anterior, en un plazo no superior a 14 días naturales después de la terminación del contrato de viaje combinado.</li>
+                </ol>
+            </div>
+            <button id="simplify-policy-btn" class="mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200">
+                Simplificar Política ✨
+            </button>
+        </section>
+
+        <footer class="text-center text-gray-500 text-sm mt-10 pt-5 border-t border-gray-200">
+            <p>Email: reservas@kalemotours.com | Web: <a href="http://www.kalemotours.com" class="text-[#6FA68B] hover:underline" target="_blank">http://www.kalemotours.com</a></p>
+            <p>Dirección: C/PIUS FORN Nº10A 3R1A, 08280 CALAF (BARCELONA), ESPAÑA</p>
+            <p>Teléfono: 930186916</p>
+        </footer>
+    </div>
+
+    <!-- Sticky Formalize Reservation Button -->
+    <button id="sticky-formalize-btn" class="sticky-formalize-btn">
+        Formalizar Reserva ✨
+    </button>
+
+    <!-- Modal Structure -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title" class="text-2xl font-bold mb-4 text-gray-800"></h3>
+            <div id="modal-body">
+                <div id="loading-spinner" class="loading-spinner hidden"></div>
+                <div id="modal-text" class="text-gray-700"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hotelOptions = {
+            "standard": {
+                bangkokHotel: "Mandarin Hotel Bangkok",
+                bangkokRoomType: "Deluxe",
+                bangkokRegimen: "Alojamiento y desayuno",
+                circuitCategory: "Categoría Primera",
+                circuitHotels: [
+                    "Sukhothai: SUKHOTHAI TREASURE",
+                    "Chiang Rai: THE HERITAGE",
+                    "Chiang Mai: CENTARA RIVERSIDE"
+                ],
+                price: 3253.03
+            },
+            "superior": {
+                bangkokHotel: "Hilton Garden Inn Bangkok Silom",
+                bangkokRoomType: "Guest Room",
+                bangkokRegimen: "Alojamiento y desayuno",
+                circuitCategory: "Categoría Primera",
+                circuitHotels: [
+                    "Sukhothai: SUKHOTHAI TREASURE",
+                    "Chiang Rai: THE HERITAGE",
+                    "Chiang Mai: CENTARA RIVERSIDE"
+                ],
+                price: 3114.28
+            },
+            "deluxe": {
+                bangkokHotel: "Pullman Bangkok Hotel G",
+                bangkokRoomType: "Deluxe G",
+                bangkokRegimen: "Alojamiento y desayuno",
+                circuitCategory: "Categoría Deluxe",
+                circuitHotels: [
+                    "Sukhothai: SRIWILAI/A partir Enero 2025: SUKHOTHAI TREASURE - Hab, superior -",
+                    "Chiang Rai: LE MERIDIAN CHIANG RAI",
+                    "Chiang Mai: MELIA CHIANG MAI"
+                ],
+                price: 3482.55
+            }
+        };
+
+        // Function to update hotel details and price based on selection
+        function updateHotelDetails() {
+            const selectedCategory = document.getElementById('hotel-category-select').value;
+            const selectedOption = hotelOptions[selectedCategory];
+
+            document.getElementById('bangkok-hotel-name').textContent = selectedOption.bangkokHotel;
+            document.getElementById('bangkok-room-type').textContent = selectedOption.bangkokRoomType;
+            document.getElementById('bangkok-regimen').textContent = selectedOption.bangkokRegimen;
+            document.getElementById('circuit-category').textContent = selectedOption.circuitCategory;
+
+            const circuitHotelsList = document.getElementById('circuit-hotels-list');
+            circuitHotelsList.innerHTML = ''; // Clear current list
+            selectedOption.circuitHotels.forEach(hotel => {
+                const li = document.createElement('li');
+                li.textContent = hotel;
+                circuitHotelsList.appendChild(li);
+            });
+
+            document.getElementById('total-price').textContent = selectedOption.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+        }
+
+        // Add event listener for hotel category selection
+        document.addEventListener('DOMContentLoaded', () => {
+            const hotelSelect = document.getElementById('hotel-category-select');
+            if (hotelSelect) {
+                hotelSelect.addEventListener('change', updateHotelDetails);
+            }
+            updateHotelDetails(); // Set initial details on page load
+        });
+
+        // Function to open the modal
+        function openModal(title, contentHtml = '', isLoading = false) {
+            const modal = document.getElementById('info-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            if (!modal || !modalTitle || !modalText || !loadingSpinner) return;
+
+            modalTitle.textContent = title;
+            modalText.innerHTML = contentHtml; // Use innerHTML for HTML content
+
+            if (isLoading) {
+                loadingSpinner.classList.remove('hidden');
+                modalText.classList.add('hidden');
+            } else {
+                loadingSpinner.classList.add('hidden');
+                modalText.classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('info-modal');
+            if(modal) {
+                modal.classList.add('hidden');
+            }
+            const modalText = document.getElementById('modal-text');
+            if(modalText) {
+                 modalText.innerHTML = ''; // Clear content on close
+            }
+        }
+        
+        // This function is defined to be called from dynamically created HTML
+        window.confirmReservation = function() {
+            const traveler1NameEl = document.getElementById('traveler1_name');
+            const traveler2NameEl = document.getElementById('traveler2_name');
+            const formMessageEl = document.getElementById('form-message');
+            
+            if (!traveler1NameEl || !traveler2NameEl || !formMessageEl) return;
+            
+            const traveler1Name = traveler1NameEl.value;
+            const traveler2Name = traveler2NameEl.value;
+
+            if (traveler1Name.trim() === '' || traveler2Name.trim() === '') {
+                formMessageEl.innerHTML = '<p class="text-red-500 text-sm mt-2">Por favor, rellena los nombres completos de ambos viajeros.</p>';
+                return;
+            }
+
+            const selectedCategory = document.getElementById('hotel-category-select').value;
+            const selectedOption = hotelOptions[selectedCategory];
+            const selectedPrice = selectedOption.price;
+            const selectedHotel = selectedOption.bangkokHotel;
+
+            const successMessage = `
+                <p class="text-green-600 font-semibold mb-4">¡Reserva iniciada con éxito!</p>
+                <p>Hemos recibido los nombres de los viajeros y la selección del hotel:</p>
+                <ul class="list-disc list-inside ml-4 mt-2">
+                    <li><b>Viajero 1:</b> ${traveler1Name}</li>
+                    <li><b>Viajero 2:</b> ${traveler2Name}</li>
+                    <li><b>Categoría de Hotel:</b> ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} (${selectedHotel})</li>
+                    <li><b>Precio Total Confirmado:</b> ${selectedPrice.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</li>
+                </ul>
+                <p class="mt-4">Pronto nos pondremos en contacto contigo para finalizar los detalles.</p>
+            `;
+            openModal('Confirmación de Reserva', successMessage, false);
+        }
+
+        // Event listener for Itinerary Idea buttons
+        document.querySelectorAll('.generate-idea-btn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const dayContent = button.dataset.dayContent;
+                openModal('Generando Ideas para tu Viaje...', '', true); // Show loading spinner
+
+                try {
+                    const prompt = `Dado el siguiente día de viaje en Tailandia: "${dayContent}". Sugiere 3-5 actividades interesantes, platos locales para probar o datos culturales relacionados con las ubicaciones de este día. Concéntrate en experiencias únicas si es posible. Formatea la respuesta como una lista con viñetas. Responde en español.`;
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will provide this at runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    
+                    if (response.ok && result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        openModal('Ideas para tu Viaje', text.replace(/\n/g, '<br>'), false); // Display content with line breaks
+                    } else {
+                        console.error('API Error:', result);
+                        openModal('Error', 'No se pudo generar ideas. Por favor, inténtalo de nuevo.', false);
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    openModal('Error', 'Hubo un problema al conectar con el servicio de IA. Inténtalo más tarde.', false);
+                }
+            });
+        });
+
+        // Event listener for Simplify Policy button
+        document.getElementById('simplify-policy-btn').addEventListener('click', async () => {
+            const policyTextElement = document.getElementById('cancellation-policy-text');
+            const policyText = policyTextElement.innerText || policyTextElement.textContent;
+
+            openModal('Simplificando la Política de Cancelación...', '', true); // Show loading spinner
+
+            try {
+                const prompt = `El siguiente texto es una política de cancelación de viajes: "${policyText}". Por favor, resume y simplifica esta política en un párrafo conciso y fácil de entender, destacando los puntos clave sobre la elegibilidad de reembolso y las penalizaciones según el momento de la cancelación. Usa un lenguaje claro y directo. Responde en español.`;
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (response.ok && result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    openModal('Política de Cancelación Simplificada', text.replace(/\n/g, '<br>'), false); // Display content with line breaks
+                } else {
+                    console.error('API Error:', result);
+                    openModal('Error', 'No se pudo simplificar la política. Por favor, inténtalo de nuevo.', false);
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                openModal('Error', 'Hubo un problema al conectar con el servicio de IA. Inténtalo más tarde.', false);
+            }
+        });
+
+        // Event listener for Formalize Reservation button
+        document.getElementById('sticky-formalize-btn').addEventListener('click', () => {
+            const formHtml = `
+                <div class="p-4">
+                    <p class="text-gray-700 mb-4">Por favor, introduce el nombre completo de cada viajero para formalizar la reserva:</p>
+                    <div class="mb-4">
+                        <label for="traveler1_name" class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo Viajero 1:</label>
+                        <input type="text" id="traveler1_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="mb-4">
+                        <label for="traveler2_name" class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo Viajero 2:</label>
+                        <input type="text" id="traveler2_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej: María García">
+                    </div>
+                    <div id="form-message"></div>
+                    <button onclick="window.confirmReservation()" class="w-full mt-4 px-4 py-2 bg-[#8AC9AD] text-white rounded-lg shadow-md hover:bg-[#6FA68B] focus:outline-none focus:ring-2 focus:ring-[#8AC9AD] focus:ring-opacity-75 transition duration-200">
+                        Confirmar Reserva
+                    </button>
+                </div>
+            `;
+            openModal('Formalizar Reserva', formHtml, false);
+        });
+
+    </script>
+
+</body>
+</html>
